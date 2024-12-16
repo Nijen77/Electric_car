@@ -1,0 +1,206 @@
+@import url(/css/normalize.css);
+body {
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: margin-left 0.3s ease;
+}
+.navbar {
+    background-color: #05386B; /* Темно-синий фон для навигационной панели */
+    padding: 10px;
+    position: relative;
+}
+.navbar button {
+    background-color: #05386B; /* Светло-зеленый фон для кнопки */
+    border: none;
+    cursor: pointer;
+}
+.toggleImg {
+    height: 20px; /* Фиксированная высота */
+    width: auto; /* Ширина автоматически подстраивается */
+}
+.sidebar {
+    width: 250px;
+    background-color: #05386B;
+    color: #EDF5E1;; /* Очень светлый фон для сайдбара */
+    position: absolute;
+    left: -250px; /* Скрыт по умолчанию */
+    transition: left 0.3s ease;
+    height: 100%;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Убедимся, что сайдбар выше других элементов */
+}
+.sidebar.active {
+    left: 0; /* Показать сайдбар */
+}
+.content {
+    transition: margin-left 0.3s ease; /* Плавный переход для сдвига контента */
+}
+.content_sidebar {
+    padding: 10px;
+}
+li>a{
+    color: #4190de;
+    text-decoration: none;
+}
+ul>hr{
+    border-color: #326fad;
+}
+
+.content_main {
+    /* Отступ для основного контента */
+}
+main {
+    background-color: #8EE4AF; /* Светло-зеленый фон для основного контента */
+    color: #f3f6ed; /* Умеренно яркий зеленый текст */
+    padding: 20px;
+    min-height: 300px;
+}
+.block {
+    background-color: #f9f9f9; /* Очень светлый серый фон для блоков */
+    border: 1px solid #bdbdbd; /* Умеренно светлая серая рамка */
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    color:#8EE4AF;
+}
+svg{
+    color: #f9f9f9;
+    height: 100%
+}
+footer {
+    background-color: #05386B; /* Темно-синий цвет подвала */
+    padding: 10px;
+    text-align: center;
+}
+.logo_container {
+    
+    border: 1px solid red;
+}
+.logo {
+    height: 45px;
+    padding: 0px;
+}
+/* Стили для формы */
+#main_form {
+    background: #ffffff; /* Белый фон для формы */
+    padding: 20px; /* Отступы внутри формы */
+    border-radius: 8px; /* Закругленные углы */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Легкая тень */
+    max-width: 90%; /* Максимальная ширина формы */
+    margin: 20px auto; /* Центрирование формы */
+    display: flex; /* Используем Flexbox */
+    flex-wrap: wrap; /* Позволяем обертывание элементов */
+    justify-content: space-between; /* Позволяем обертывание элементов */
+    gap: 10px; /* Отступы между элементами */
+    align-items: center;
+}
+#main_form select,
+#main_form input[type="text"],
+#main_form button {
+    flex: 1; /* Элементы занимают равное пространство */
+    padding: 10px; /* Отступы внутри элементов */
+    border: 1px solid #ccc; /* Светло-серая рамка */
+    border-radius: 6px; /* Закругленные углы */
+    font-size: 16px; /* Размер шрифта */
+}
+#main_form select:focus,
+#main_form input[type="text"]:focus {
+    border-color: #379683; /* Цвет рамки при фокусе */
+    outline: none; /* Убираем стандартный контур */
+}
+#main_form button {
+    background-color: #5CDB95; /* Умеренно яркий зеленый фон для кнопки */
+    color: white; /* Белый текст на кнопке */
+    border: none; /* Убираем рамку */
+    cursor: pointer; /* Указатель при наведении */
+    font-size: 16px; /* Размер шрифта */
+    transition: background-color 0.3s; /* Плавный переход цвета фона */
+    bottom: 10%;
+    flex-grow: 1;
+}
+#main_form button:hover {
+    background-color: #379683; /* Светло-зеленый фон при наведении */
+}
+#main_form label {
+    font-weight: bold; /* Полужирный шрифт для меток */
+    margin-top: 10px; /* Отступ сверху для меток */
+    display: block; /* Блочный элемент для меток */
+}
+
+
+
+
+
+
+
+
+
+
+
+.navbar {
+    background-color: #255E66; /* Темно-синий фон для навигационной панели */
+}
+.navbar button {
+    background-color: #255E66; /* Светло-зеленый фон для кнопки */
+}
+
+
+
+/* */
+
+/*  горизонталь линия и тескт свева */
+li>a{
+    color: #c3d1d2;
+}
+ul>hr{
+    border-color: #4697a2;
+}
+
+.sidebar {
+    background-color: #255E66;
+    color: #EDF5E1;; /* Очень светлый фон для сайдбара */
+
+}
+
+main {
+    background-color: #e0e7e1; /* Светло-зеленый фон для основного контента */
+    color: #456c71; /* Умеренно яркий зеленый текст */
+}
+
+.block {
+    background-color: #ced7d3; /* Очень светлый серый фон для блоков */
+    border: 1px solid #d0d5d1; /* Умеренно светлая серая рамка */
+    color:#4b767d;
+}
+
+
+
+/* Темно-синий цвет подвала */
+footer {
+    background-color: #255E66; 
+    padding: 10px;
+    text-align: center;
+}
+
+
+/* задний фон формы ввода */
+#main_form {
+    background: #dfe4df;
+
+}
+
+
+/*цвет кнопки */
+#main_form button {
+    background-color: #2e8590; /* Умеренно яркий зеленый фон для кнопки */
+    color: white; /* Белый текст на кнопке */
+}
+
+#main_form button:hover {
+    background-color: #48686c; /* Светло-зеленый фон при наведении */
+}
+
+

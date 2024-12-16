@@ -1,0 +1,32 @@
+мне нужно чтобы кнопка была по центру формы
+.form {
+  display: flex;
+  border: 1px solid rgb(255, 255, 255);
+  gap: 1%;
+
+}
+.form-elem{
+}
+.button-submit-container{
+    width: 25%;
+    margin-left: 38%;
+
+
+}
+.form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  justify-content: center;
+}
+.form button {
+  width : 100%;
+  justify-self: start;
+  background-color: #61892F; /* Последний цвет */
+  color: rgb(255, 255, 255);
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
