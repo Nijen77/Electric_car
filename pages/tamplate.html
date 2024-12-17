@@ -12,17 +12,23 @@
 <body>
     <div class="conteniner">
         <nav class="navbar" style="display: flex; justify-content: space-between;">
-            <button id="toggleButton"><img src="source/img/bars-svgrepo-com.svg" class="toggleImg"></button>
+            <button id="toggleButton"><img src="/source/img/bars-svgrepo-com.svg" class="toggleImg"></button>
 
             <a href="/index.html"><img src="/source/img/logo.png" alt="" class="logo"></a>
 
-            <div class="dropdown-menu"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+            <div class="hamburger" id="hamburger"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
                     fill="currentColor" class="bi bi-person-circle" viewBox="0 0 30 30">
                     <path d="M20.625 11.25a5.625 5.625 0 1 1-11.25 0 5.625 5.625 0 0 1 11.25 0" />
                     <path fill-rule="evenodd"
                         d="M0 15a15 15 0 1 1 30 0 15 15 0 0 1-30 0M15 1.875A13.125 13.125 0 0 0 4.748 23.194C6.079 21.049 9.009 18.75 15 18.75s8.919 2.297 10.252 4.444A13.125 13.125 0 0 0 15 1.875" />
                 </svg>
             </div>
+            <nav class="menu" id="menu">
+                <li><a href="../pages/registration.html">регистрация</a></li>
+                <li><a href="#services">полезное</a></li>
+                <hr>
+                <li><a href="#contact">Выйти</a></li>
+            </nav>
         </nav>
         <div class="content" id="content">
 
@@ -54,40 +60,7 @@
                             поездки и обеспечит надежную работу вашего электромобиля.
                         </h2>
                         <div>
-                            <form id="main_form">
-                                <div>
-                                    <label>Модель авто</label>
-                                    <select aria-label="Модель авто">
-                                        <option value="not_selected">не выбрано</option>
-                                        <option value="Volkswagen ID.3">Volkswagen ID.3</option>
-                                        <option value="Hyundai Kona Electric">Hyundai Kona Electric</option>
-                                        <option value="Nissan Ariya">Nissan Ariya</option>
-                                        <option value="Tesla Model 3">Tesla Model 3</option>
-                                        <option value="Volvo XC40 Recharge">Volvo XC40 Recharge</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label>Пробег, км</label>
-                                    <input type="text" placeholder="Пробег, км" />
-                                </div>
-                                <div>
-                                    <label>Время использования, месяцев</label>
-                                    <input type="text" placeholder="Время использования, месяцев" />
-                                </div>
-                                <div>
-                                    <label>Частота использования(дней в неделю)</label>
-                                    <select aria-label="Частота использования(дней в неделю)">
-                                        <option value="not_selected">не выбрано</option>
-                                        <option value="1-2">1-2</option>
-                                        <option value="3-4">3-4</option>
-                                        <option value="5-6">5-6</option>
-                                        <option value="Every_day">Каждый день</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <button type="submit">Отправить</button>
-                                </div>
-                            </form>
+
                         </div>
 
                     </div>
@@ -104,5 +77,6 @@
     </div>
 </body>
 <script src="/js/sidebar.js"></script>
+<script src="/js/dropDownMenu.js"></script>
 
 </html>

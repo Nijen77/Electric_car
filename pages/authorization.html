@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Электрокар|Войти</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/registration.css">
+    <link rel="stylesheet" href="/css/authorization.css">
+
+</head>
+
+<body>
+    <div class="conteniner">
+        <nav class="navbar">
+            <button id="toggleButton"><img src="/source/img/bars-svgrepo-com.svg" class="toggleImg"></button>
+
+            <a href="/index.html"><img src="/source/img/logo.png" alt="" class="logo"></a>
+
+
+            <div class="hamburger" id="hamburger"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                    fill="currentColor" class="bi bi-person-circle" viewBox="0 0 30 30">
+                    <path d="M20.625 11.25a5.625 5.625 0 1 1-11.25 0 5.625 5.625 0 0 1 11.25 0" />
+                    <path fill-rule="evenodd"
+                        d="M0 15a15 15 0 1 1 30 0 15 15 0 0 1-30 0M15 1.875A13.125 13.125 0 0 0 4.748 23.194C6.079 21.049 9.009 18.75 15 18.75s8.919 2.297 10.252 4.444A13.125 13.125 0 0 0 15 1.875" />
+                </svg>
+            </div>
+            <nav class="menu" id="menu">
+
+                <li><a href="../pages/registration.html">регистрация</a></li>
+                <li><a href="#services">полезное</a></li>
+                <hr>
+
+                <li><a href="#contact">Выйти</a></li>
+            </nav>
+        </nav>
+        <div class="content" id="content">
+
+            <div class="sidebar " id="sidebar">
+                <div class="content_sidebar">
+                    <h2>Быстрое меню</h2>
+                    <ul style="list-style-type: none;">
+                        <li><a href="#">Соыветы и рекомендации</a></li>
+                        <hr>
+                        <li><a href="#">Карта зарядных станций </a></li>
+                        <hr>
+                        <li><a href="#">Часто задавыемые вопросы</a></li>
+                        <hr>
+                        <li><a href="#">Полезное</a></li>
+                        <hr>
+                    </ul>
+                </div>
+            </div>
+            <div class="content_main">
+                <main>
+                    <h1>
+                        Регистрация
+                    </h1>
+
+                    <div class="block">
+                        <div class="log-form__content">
+                            <form class="form" id="formElem">
+
+                                <div class="form-elem"><label for="">
+                                        электронная почта
+
+                                    </label>
+                                    <input type="email" name="email" placeholder="ivanovocjSuper@mail.ru" required />
+                                </div>
+                                <div class="form-elem"><label for="">
+                                        Пароль
+                                    </label>
+                                    <input type="password" name="password" placeholder="Пароль" required />
+                                </div>
+                                <div class="form-elem button-submit-container"><button
+                                        type="submit">регистрация</button></div>
+                            </form>
+                        </div>
+                        <!--<div class="other-links">
+                            <a href="/pages/authorization.html">уже существует аккаунт? Войти</a>
+
+                        </div>-->
+                    </div>
+
+
+
+                </main>
+                <footer>
+                </footer>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/js/sidebar.js"></script>
+<script src="/js/dropDownMenu.js"></script>
+<script src="/js/auth.js"></script>
+
+
+</html>
