@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Электрокар||Прогнозирование работы аккумулятора</title>
+    <link rel="stylesheet" href="/css/main.css">
+
+</head>
+
+<body>
+    <div class="conteniner">
+        <nav class="navbar content ">
+            <button id="toggleButton"><img src="source/img/bars-svgrepo-com.svg" class="toggleImg"></button>
+
+            <a href="/index.html"><img src="/source/img/logo.png" alt="" class="logo"></a>
+
+
+            <div class="hamburger" id="hamburger"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                    fill="currentColor" class="bi bi-person-circle" viewBox="0 0 30 30">
+                    <path d="M20.625 11.25a5.625 5.625 0 1 1-11.25 0 5.625 5.625 0 0 1 11.25 0" />
+                    <path fill-rule="evenodd"
+                        d="M0 15a15 15 0 1 1 30 0 15 15 0 0 1-30 0M15 1.875A13.125 13.125 0 0 0 4.748 23.194C6.079 21.049 9.009 18.75 15 18.75s8.919 2.297 10.252 4.444A13.125 13.125 0 0 0 15 1.875" />
+                </svg>
+            </div>
+            <nav class="menu" id="menu">
+                <li><a href="../pages/registration.html">регистрация</a></li>
+                <li><a href="#services">полезное</a></li>
+                <hr>
+                <li><a href="#contact">Выйти</a></li>
+            </nav>
+
+        </nav>
+        <div class="content" id="content">
+
+            <div class="sidebar " id="sidebar">
+                <div class="content_sidebar">
+                    <h2>Быстрое меню</h2>
+                    <ul style="list-style-type: none;">
+                        <li><a href="#">Советы и рекомендации</a></li>
+                        <hr>
+                        <li><a href="#">Карта зарядных станций </a></li>
+                        <hr>
+                        <li><a href="#">Часто задавыемые вопросы</a></li>
+                        <hr>
+                        <li><a href="#">Полезное</a></li>
+                        <hr>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="content_main">
+                <main>
+                    <h1>
+                        Добро пожаловать на наш сайт, посвященный услугам, связанным с электромобилями! Мы рады
+                        приветствовать вас здесь и предлагаем вашему вниманию уникальную возможность оценить состояние
+                        аккумулятора вашего электромобиля.
+                    </h1>
+                    <div class="block">
+                        <h2>Просто введите необходимые данные в специальную форму, и на основе них мы предоставим вам
+                            примерный прогноз по состоянию аккумулятора а так же составим удобный маршрут для вашей
+                            поездки. Эта информация поможет вам планировать свои
+                            поездки и обеспечит надежную работу вашего электромобиля.
+                        </h2>
+                        <div>
+                            <form id="battery_analysis" class="form"> <!--method="POST" action="/submit-data"-->
+                                <div>
+                                    <label for="car_model">Модель авто</label>
+                                    <select id="car_model" name="car_model" aria-label="Модель авто" required>
+                                        <option value="not_selected">не выбрано</option>
+                                        <option value="Volkswagen ID.3">Volkswagen ID.3</option>
+                                        <option value="Hyundai Kona Electric">Hyundai Kona Electric</option>
+                                        <option value="Nissan Ariya">Nissan Ariya</option>
+                                        <option value="Tesla Model 3">Tesla Model 3</option>
+                                        <option value="Volvo XC40 Recharge">Volvo XC40 Recharge</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="mileage">Пробег, км</label>
+                                    <input id="mileage" type="number" name="mileage" placeholder="Введите пробег, км"
+                                        min="0" required />
+                                </div>
+                                <div>
+                                    <label for="usage_time">Время использования, месяцев</label>
+                                    <input id="usage_time" type="number" name="usage_time"
+                                        placeholder="Введите время использования" min="0" required />
+                                </div>
+                                <div>
+                                    <label for="usage_frequency">Частота использования (дней в неделю)</label>
+                                    <select id="usage_frequency" name="usage_frequency" required>
+                                        <option value="not_selected">не выбрано</option>
+                                        <option value="1-2">1-2</option>
+                                        <option value="3-4">3-4</option>
+                                        <option value="5-6">5-6</option>
+                                        <option value="Every_day">Каждый день</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <button type="submit">Отправить</button>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+                    <div class="block">
+                        <h2>Расчёт маршрута для электромобиля </h2>
+                        <form id="mapForm" class="form" style="display: flex;">
+                            <div>
+                                <label for="start_point">Начальный пункт</label>
+                                <input id="start_point" type="text" name="start_point"
+                                    placeholder="Введите начальный пункт" required />
+                            </div>
+                            <div>
+                                <label for="end_point">Конечный пункт</label>
+                                <input id="end_point" type="text" name="end_point" placeholder="Введите конечный пункт"
+                                    required />
+                            </div>
+                            <div>
+                                <label for="current_charge">Текущий уровень заряда (%)</label>
+                                <input id="current_charge" type="number" name="current_charge"
+                                    placeholder="Введите уровень заряда" min="0" max="100" required
+                                    onkeypress='validate(event)' />
+                            </div>
+                            <div>
+                                <label>Дополнительные параметры</label>
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" name="parameters" value="min_energy" /> Минимизировать
+                                        затрату энергии</label>
+                                    <label><input type="checkbox" name="parameters" value="charging_stations" /> Заехать
+                                        на зарядную станцию по пути</label>
+                                    <label><input type="checkbox" name="parameters" value="specific_road" />
+                                        Использовать определённый тип дороги</label>
+                                </div>
+                                <div>
+
+                                </div>
+
+                                <div>
+                                    <button type="submit">Расчитать</button>
+                                </div>
+
+
+                        </form>
+
+                    </div>
+                    <div class="block">
+                        <h2>Блок с результатами</h2>
+                    </div>
+
+
+                </main>
+                <footer>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto dolor nobis, consequuntur officia
+                        distinctio laboriosam rem maxime ad quasi dolorum velit cupiditate impedit eius facilis!</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="/js/mainForm.js" defer></script>
+<script src="/js/sidebar.js"></script>
+<script src="/js/dropDownMenu.js"></script>
+<script>
+    function validate(evt) {
+        const key = evt.key; // Получаем нажатую клавишу
+        const regex = /^[0-9.]$/; // Регулярное выражение для проверки цифр и точки
+
+        if (!regex.test(key)) {
+            evt.preventDefault(); // Отменяем действие по умолчанию, если ввод некорректен
+        }
+    }
+</script>
+
+</html>
