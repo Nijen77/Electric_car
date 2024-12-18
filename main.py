@@ -112,6 +112,30 @@ def register_user():
         app.logger.error(f'Ошибка сервера: {str(e)}')
         return jsonify({'error': 'Ошибка сервера'}), 500
 
+# Авторизация пользователя
+@app.route('/login', methods=['POST'])
+def login_user():
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+
+    if not (email and password):
+        return jsonify({'error': 'Email и пароль обязательны'}), 400
+
+    with get_db_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("SELECT passwordhash FROM el_car_users WHERE email = %s", (email,))
+            result = cur.fetchone()
+
+            if not result:
+                return jsonify({'error': 'Пользователь не найден'}), 404
+
+            stored_password = result[0]
+            if not bcrypt.checkpw(password.encode('utf-8'), stored_password.encode('utf-8')):
+                return jsonify({'error': 'Неверный пароль'}), 401
+
+    return jsonify({'message': 'Авторизация успешна'}), 200
+
 # Роут для сохранения данных телеметрии (MongoDB)
 @app.route('/submit-data', methods=['POST'])
 def submit_data():
