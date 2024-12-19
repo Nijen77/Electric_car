@@ -37,8 +37,6 @@ document.getElementById('mapForm').onsubmit = async (e) => {
             const error = await response.json();
             alert(`Ошибка: ${error.error || 'Неизвестная ошибка'}`);
         }
-
-
     } catch (error) {
         alert(`Произошла ошибка: ${error.message}`);
     }
