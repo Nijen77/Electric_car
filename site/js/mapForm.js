@@ -1,43 +1,53 @@
 document.getElementById('mapForm').onsubmit = async (e) => {
-    e.preventDefault(); // Предотвращаем стандартное поведение формы
+    e.preventDefault();
 
     const formElement = document.querySelector('#mapForm');
     const formData = new FormData(formElement);
 
-    // Используем getAll() для получения всех значений 'parameters[]'
+    // Преобразуем FormData в объект
     const formDataObject = Object.fromEntries(formData.entries());
-    formDataObject['parameters'] = formData.getAll('parameters');
+    formDataObject['parameters'] = formData.getAll('parameters'); // Обработка полей с одинаковым именем
 
-    const jsonData = JSON.stringify(formDataObject); // Преобразуем объект в JSON
-
-    console.log('Данные формы в JSON:', jsonData); // Проверяем данные перед отправкой
+    const jsonData = JSON.stringify(formDataObject);
 
     try {
-        let response = await fetch('/submit-data', {
+        // Отправка запроса
+        const response = await fetch('/submit-data', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: jsonData
+            body: jsonData,
         });
 
-        if (response.ok) {
-            const result = await response.json();
-            alert(`Успех: ${result.message}`);
-        } else {
-            const error = await response.json();
-            alert(`Ошибка: ${error.error || 'Неизвестная ошибка'}`);
-        }
+        const { data } = await response.json();
+        if (data) {
+            console.log(data.start_point, data.end_point);
+}
 
         if (response.ok) {
-            const updatedData = await response.json();
-            console.log('Обновленные данные из базы:', updatedData);
-            updateUI(updatedData); // Функция для обновления интерфейса новыми данными
+            updateUI(data); // Передаем данные в функцию обновления UI
         } else {
-            const error = await response.json();
-            alert(`Ошибка: ${error.error || 'Неизвестная ошибка'}`);
+            alert(`Ошибка: ${data.error || 'Неизвестная ошибка'}`);
         }
     } catch (error) {
         alert(`Произошла ошибка: ${error.message}`);
     }
 };
+
+// Функция для обновления UI
+function updateUI(datas) {
+    const resultBlock = document.querySelector('.map-result_content');
+
+    if (!resultBlock) {
+        console.error('Элемент для отображения результата не найден');
+        return;
+    }
+
+    // Используем шаблонные строки для корректной вставки HTML
+    resultBlock.innerHTML = `
+        <h3>Результаты:</h3>
+        <p>Начальная точка: ${datas.start_point || 'Не указано'}</p>
+        <p>Конечная точка: ${datas.end_point || 'Не указано'}</p>
+    `;
+}
