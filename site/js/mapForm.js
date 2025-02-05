@@ -19,11 +19,12 @@ document.getElementById('mapForm').onsubmit = async (e) => {
             },
             body: jsonData,
         });
-
+        //полученние обработанных данных - деструктуризация 
         const { data } = await response.json();
-        if (data) {
-            console.log(data.start_point, data.end_point);
-}
+        if (data) { console.log(data); } //вывод данных в случае успеха
+
+
+
 
         if (response.ok) {
             updateUI(data); // Передаем данные в функцию обновления UI
@@ -36,18 +37,21 @@ document.getElementById('mapForm').onsubmit = async (e) => {
 };
 
 // Функция для обновления UI
-function updateUI(datas) {
+function updateUI({ start_latitude, start_longitude, end_latitude, end_longitude }) {
     const resultBlock = document.querySelector('.map-result_content');
 
     if (!resultBlock) {
         console.error('Элемент для отображения результата не найден');
         return;
     }
+    let latitude_center = (start_latitude + end_latitude) / 2;
+    let longitude_center = (start_longitude + end_longitude) / 2;
+    let zoom = 10;
+
 
     // Используем шаблонные строки для корректной вставки HTML
     resultBlock.innerHTML = `
-        <h3>Результаты:</h3>
-        <p>Начальная точка: ${datas.start_point || 'Не указано'}</p>
-        <p>Конечная точка: ${datas.end_point || 'Не указано'}</p>
+        <h3>Маршрут</h3>
+        https://yandex.ru/map-widget/v1/?from=mapframe&ll=${longitude_center}%2C${latitude_center}&mode=routes&rtext=${start_latitude}%2C${start_longitude}~${end_latitude}%2C${end_longitude}&rtt=auto&ruri=~&z=${zoom}
     `;
 }
