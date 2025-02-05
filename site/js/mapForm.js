@@ -52,6 +52,7 @@ function updateUI({ start_latitude, start_longitude, end_latitude, end_longitude
     // Используем шаблонные строки для корректной вставки HTML
     resultBlock.innerHTML = `
         <h3>Маршрут</h3>
-        https://yandex.ru/map-widget/v1/?from=mapframe&ll=${longitude_center}%2C${latitude_center}&mode=routes&rtext=${start_latitude}%2C${start_longitude}~${end_latitude}%2C${end_longitude}&rtt=auto&ruri=~&z=${zoom}
+        <iframe src="https://yandex.ru/map-widget/v1/?from=mapframe&ll=${longitude_center}%2C${latitude_center}&mode=routes&rtext=${start_latitude}%2C${start_longitude}~${end_latitude}%2C${end_longitude}&rtt=auto&ruri=~&z=${zoom}" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
     `;
 }
+
