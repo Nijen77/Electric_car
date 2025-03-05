@@ -120,8 +120,7 @@
                             <div>
                                 <label for="current_charge">Текущий уровень заряда (%)</label>
                                 <input id="current_charge" type="number" name="current_charge"
-                                    placeholder="Введите уровень заряда" min="0" max="100" required
-                                    onkeypress='validate(event)' />
+                                    placeholder="Введите уровень заряда" min="0" max="100" required />
                             </div>
                             <div>
                                 <label>Дополнительные параметры</label>
@@ -145,15 +144,19 @@
                         </form>
 
                     </div>
+                    <div class="loading" id="loading">
+                        <span class="loader"></span>
+                        <span>Идет обработка...</span>
+                    </div>
                     <div class="block">
                         <h2>результаты</h2>
                         <div class="map-result_container">
                             <div class="map-result_content">
-                                
+
 
 
                             </div>
-                            
+
                         </div>
                     </div>
 
@@ -173,15 +176,6 @@
 <script src="js/sidebar.js"></script>
 <script src="js/dropDownMenu.js"></script>
 
-<script>
-    function validate(evt) {
-        const key = evt.key; // Получаем нажатую клавишу
-        const regex = /^[0-9.]$/; // Регулярное выражение для проверки цифр и точки
 
-        if (!regex.test(key)) {
-            evt.preventDefault(); // Отменяем действие по умолчанию, если ввод некорректен
-        }
-    }
-</script>
 
 </html>

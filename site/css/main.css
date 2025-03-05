@@ -31,15 +31,11 @@ input[type="number"] {
     border-radius: 6px;
     font-size: 16px;
     width: 12vw;
+    -webkit-appearance: none; 
 
 }
-input[type="number"]{
-    width: 9vw;}
-
-    
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none; /* Убираем стандартный стиль */
+    input[type="number"]::-webkit-inner-spin-button{
+    -webkit-appearance: none; 
 }
 
 
@@ -89,4 +85,48 @@ ul>hr {
 svg {
     color: #f9f9f9;
     height: 100%;
+}
+
+
+/* Стили для экрана загрузки */
+.loading {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 1000;
+}
+/* Анимированный индикатор загрузки */
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    margin-bottom: 10px;
+}
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+/* Блокировка взаимодействия со страницей во время загрузки */
+body.loading-active {
+    pointer-events: none;
+    user-select: none;
 }
