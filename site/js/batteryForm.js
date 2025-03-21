@@ -41,14 +41,16 @@ document.getElementById("battery_analysis").onsubmit = async (e) => {
 
     const formElement = document.querySelector("#battery_analysis");
     const formData = new FormData(formElement);
-    const formDataObject = {
-        car_id: formData.get("car_id"),
-        mileage: formData.get("mileage"),
-        usage_time: formData.get("usage_time")
-    };
+    const formDataObject = Object.fromEntries(formData.entries());
+
+    // Добавляем ID авто (если найден)
+    let carId = carData.find(car => car.Модель === formDataObject.car_model)?._id || "";
+    formDataObject["car_id"] = carId;
+    delete formDataObject.car_model; // Удаляем car_model, чтобы не отправлять
 
     const jsonData = JSON.stringify(formDataObject);
     console.log(jsonData);
+
 
     try {
         const response = await fetch("/submit-data", {
