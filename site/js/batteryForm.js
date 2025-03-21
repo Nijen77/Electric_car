@@ -81,3 +81,4 @@ document.getElementById("battery_analysis").addEventListener("submit", handleFor
 
 // Загружаем данные автомобилей при загрузке страницы
 loadCarModels();
+
