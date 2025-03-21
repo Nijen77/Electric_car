@@ -6,7 +6,7 @@ document.getElementById('mapForm').onsubmit = async (e) => {
     const formDataObject = Object.fromEntries(formData.entries());
     formDataObject['parameters'] = formData.getAll('parameters');
     const jsonData = JSON.stringify(formDataObject);
-    console.log(response.json())
+    console.log(jsonData)
 
     showLoading(); // Показываем индикатор загрузки
 

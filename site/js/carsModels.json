@@ -1,173 +1,230 @@
 [
   {
+    "id": "67d4b5fd68d1307f7560e52c",
     "name": "Tesla Model 3 Long Range"
   },
   {
+    "id": "67d4b5fd68d1307f7560e52d",
     "name": "Nissan Leaf"
   },
   {
+    "id": "67d4b5fd68d1307f7560e52e",
     "name": "Chevrolet Bolt EV"
   },
   {
+    "id": "67d4b5fd68d1307f7560e52f",
     "name": "Audi e-tron"
   },
   {
+    "id": "67d4b5fd68d1307f7560e530",
     "name": "Hyundai Kona Electric"
   },
   {
+    "id": "67d4b5fd68d1307f7560e531",
     "name": "Porsche Taycan"
   },
   {
+    "id": "67d4b5fd68d1307f7560e532",
     "name": "BMW i3"
   },
   {
+    "id": "67d4b5fd68d1307f7560e533",
     "name": "Renault Zoe"
   },
   {
+    "id": "67d4b5fd68d1307f7560e534",
     "name": "Ford Mustang Mach-E"
   },
   {
+    "id": "67d4b5fd68d1307f7560e535",
     "name": "Kia EV6"
   },
   {
+    "id": "67d4b5fd68d1307f7560e536",
     "name": "Tesla Model S Plaid"
   },
   {
+    "id": "67d4b5fd68d1307f7560e537",
     "name": "Tesla Model X Long Range"
   },
   {
+    "id": "67d4b5fd68d1307f7560e538",
     "name": "Tesla Model Y Long Range"
   },
   {
+    "id": "67d4b5fd68d1307f7560e539",
     "name": "Nissan Ariya"
   },
   {
+    "id": "67d4b5fd68d1307f7560e53a",
     "name": "Chevrolet Bolt EUV"
   },
   {
+    "id": "67d4b5fd68d1307f7560e53b",
     "name": "Audi Q4 e-tron"
   },
   {
+    "id": "67d4b5fd68d1307f7560e53c",
     "name": "Hyundai Ioniq 5"
   },
   {
+    "id": "67d4b5fd68d1307f7560e53d",
     "name": "Kia Niro EV"
   },
   {
+    "id": "67d4b5fd68d1307f7560e53e",
     "name": "Polestar 2"
   },
   {
+    "id": "67d4b5fd68d1307f7560e53f",
     "name": "Volkswagen ID.4"
   },
   {
+    "id": "67d4b5fd68d1307f7560e540",
     "name": "Ford F-150 Lightning"
   },
   {
+    "id": "67d4b5fd68d1307f7560e541",
     "name": "Rivian R1T"
   },
   {
+    "id": "67d4b5fd68d1307f7560e542",
     "name": "Lucid Air Dream Edition"
   },
   {
+    "id": "67d4b5fd68d1307f7560e543",
     "name": "Mercedes-Benz EQS"
   },
   {
+    "id": "67d4b5fd68d1307f7560e544",
     "name": "BMW i4"
   },
   {
+    "id": "67d4b5fd68d1307f7560e545",
     "name": "Volvo XC40 Recharge"
   },
   {
+    "id": "67d4b5fd68d1307f7560e546",
     "name": "Porsche Taycan Cross Turismo"
   },
   {
+    "id": "67d4b5fd68d1307f7560e547",
     "name": "Renault Megane E-Tech"
   },
   {
+    "id": "67d4b5fd68d1307f7560e548",
     "name": "Skoda Enyaq iV"
   },
   {
+    "id": "67d4b5fd68d1307f7560e549",
     "name": "Fiat 500e"
   },
   {
+    "id": "67d4b5fd68d1307f7560e54a",
     "name": "Mini Cooper SE"
   },
   {
+    "id": "67d4b5fd68d1307f7560e54b",
     "name": "Mazda MX-30"
   },
   {
+    "id": "67d4b5fd68d1307f7560e54c",
     "name": "Toyota bZ4X"
   },
   {
+    "id": "67d4b5fd68d1307f7560e54d",
     "name": "Subaru Solterra"
   },
   {
+    "id": "67d4b5fd68d1307f7560e54e",
     "name": "Genesis GV60"
   },
   {
+    "id": "67d4b5fd68d1307f7560e54f",
     "name": "BYD Atto 3"
   },
   {
+    "id": "67d4b5fd68d1307f7560e550",
     "name": "XPeng P7"
   },
   {
+    "id": "67d4b5fd68d1307f7560e551",
     "name": "NIO ET7"
   },
   {
+    "id": "67d4b5fd68d1307f7560e552",
     "name": "Li Auto L9"
   },
   {
+    "id": "67d4b5fd68d1307f7560e553",
     "name": "Tesla Cybertruck"
   },
   {
+    "id": "67d4b5fd68d1307f7560e554",
     "name": "Volkswagen ID.3"
   },
   {
+    "id": "67d4b5fd68d1307f7560e555",
     "name": "Peugeot e-208"
   },
   {
+    "id": "67d4b5fd68d1307f7560e556",
     "name": "Opel Corsa-e"
   },
   {
+    "id": "67d4b5fd68d1307f7560e557",
     "name": "DS 3 Crossback E-Tense"
   },
   {
+    "id": "67d4b5fd68d1307f7560e558",
     "name": "Jaguar I-PACE"
   },
   {
+    "id": "67d4b5fd68d1307f7560e559",
     "name": "Honda e"
   },
   {
+    "id": "67d4b5fd68d1307f7560e55a",
     "name": "MG ZS EV"
   },
   {
+    "id": "67d4b5fd68d1307f7560e55b",
     "name": "Lexus UX 300e"
   },
   {
+    "id": "67d4b5fd68d1307f7560e55c",
     "name": "Smart EQ Fortwo"
   },
   {
+    "id": "67d4b5fd68d1307f7560e55d",
     "name": "Smart EQ Forfour"
   },
   {
+    "id": "67d4b5fd68d1307f7560e55e",
     "name": "Citroën ë-C4"
   },
   {
+    "id": "67d4b5fd68d1307f7560e55f",
     "name": "Cupra Born"
   },
   {
+    "id": "67d4b5fd68d1307f7560e560",
     "name": "Mazda MX-30"
   },
   {
+    "id": "67d4b5fd68d1307f7560e561",
     "name": "Toyota Proace Electric"
   },
   {
+    "id": "67d4b5fd68d1307f7560e562",
     "name": "Maxus Euniq 5"
   },
   {
+    "id": "67d4b5fd68d1307f7560e563",
     "name": "Aiways U5"
   },
   {
+    "id": "67d4b5fd68d1307f7560e564",
     "name": "ORA Funky Cat"
   }
 ]

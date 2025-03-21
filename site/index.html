@@ -81,21 +81,25 @@
                                     <input id="usage_time" type="number" name="usage_time"
                                         placeholder="Введите время использования" min="0" required />
                                 </div>
-                                <div>
-                                    <label for="usage_frequency">Частота использования (дней в неделю)</label>
-                                    <select id="usage_frequency" name="usage_frequency" required>
-                                        <option value="not_selected">не выбрано</option>
-                                        <option value="1-2">1-2</option>
-                                        <option value="3-4">3-4</option>
-                                        <option value="5-6">5-6</option>
-                                        <option value="Every_day">Каждый день</option>
-                                    </select>
-                                </div>
+                                
                                 <div>
                                     <button type="submit">Отправить</button>
                                 </div>
                             </form>
 
+                        </div>
+                        <div class="block">
+                            <h2>результаты</h2>
+                            <div class="battery-result_container">
+                                <div class="loading" id="loading">
+                                    <span class="loader"></span>
+                                    <span>Идет обработка...</span>
+                                </div>
+    
+                                <div class="battery-result_content">
+                                </div>
+    
+                            </div>
                         </div>
 
                     </div>
@@ -178,31 +182,6 @@
     });
 </script>
 <script>
-    document.getElementById("car_model").addEventListener("input", function () {
-    let query = this.value.toLowerCase();
-    let datalist = document.getElementById("car_model_list");
-
-    if (query.length < 1) {
-        datalist.innerHTML = ""; // Очищаем список, если нет ввода
-        return;
-    }
-
-    fetch("./js/carsModels.json") // путь к JSON-файлу
-        .then(response => response.json())
-        .then(data => {
-            datalist.innerHTML = ""; // Очищаем перед обновлением
-            let count = 0; // Счётчик для ограничения количества
-            data.forEach(option => {
-                if (option.name.toLowerCase().includes(query) && count < 5) { // Фильтруем и ограничиваем
-                    let opt = document.createElement("option");
-                    opt.value = option.name;
-                    datalist.appendChild(opt);
-                    count++; // Увеличиваем счётчик
-                }
-            });
-        })
-        .catch(error => console.error("Ошибка загрузки данных:", error));
-});
 
 </script>
 
