@@ -74,7 +74,7 @@ async function handleFormSubmit(event) {
 
         if (predictResponse.ok) {
             console.log("Ответ от /predict:", predictResult);
-            updateUI(predictResult);
+            updateUIX(predictResult);
 
 
             // Отправка данных на /submit-data
@@ -113,7 +113,7 @@ document.getElementById("battery_analysis").addEventListener("submit", handleFor
 // Загружаем данные автомобилей при загрузке страницы
 loadCarModels();
 
-function updateUI(degradation, recommendations) {
+function updateUIX(degradation, recommendations) {
     const resultBlock = document.querySelector('.battery-result_content');
     if (!resultBlock) return;
 
