@@ -60,22 +60,43 @@ async function handleFormSubmit(event) {
     }
 
     const jsonData = JSON.stringify(formDataObject);
-    console.log(jsonData);
+    console.log("Данные для отправки:", jsonData);
 
     try {
-        const response = await fetch("http://127.0.0.1:5001/predict", {
+        // Отправка данных на /predict
+        const predictResponse = await fetch("http://127.0.0.1:5001/predict", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: jsonData,
         });
 
-        const { data } = await response.json();
-        if (response.ok) {
-            alert("Данные успешно отправлены!");
+        const predictResult = await predictResponse.json();
+
+        if (predictResponse.ok) {
+            console.log("Ответ от /predict:", predictResult);
+
+            // Отправка данных на /submit-data
+            const submitResponse = await fetch("http://127.0.0.1:5000/submit-data", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: jsonData,
+            });
+
+            const submitResult = await submitResponse.json();
+
+            if (submitResponse.ok) {
+                console.log("Данные успешно записаны в MongoDB:", submitResult);
+                alert("Запросы успешно выполнены!");
+            } else {
+                console.error("Ошибка при записи в MongoDB:", submitResult.error);
+                alert(`Ошибка записи в MongoDB: ${submitResult.error}`);
+            }
         } else {
-            alert(`Ошибка: ${data.error || "Неизвестная ошибка"}`);
+            console.error("Ошибка от /predict:", predictResult.error);
+            alert(`Ошибка обработки данных: ${predictResult.error}`);
         }
     } catch (error) {
+        console.error("Ошибка сети или сервера:", error);
         alert(`Произошла ошибка: ${error.message}`);
     }
 }
