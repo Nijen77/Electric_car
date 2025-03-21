@@ -3,51 +3,56 @@ document.getElementById('mapForm').onsubmit = async (e) => {
 
     const formElement = document.querySelector('#mapForm');
     const formData = new FormData(formElement);
-
-    // Преобразуем FormData в объект
     const formDataObject = Object.fromEntries(formData.entries());
-    formDataObject['parameters'] = formData.getAll('parameters'); // Обработка полей с одинаковым именем
-
+    formDataObject['parameters'] = formData.getAll('parameters');
     const jsonData = JSON.stringify(formDataObject);
+    console.log(response.json())
+
+    showLoading(); // Показываем индикатор загрузки
 
     try {
-        // Отправка запроса
         const response = await fetch('/submit-data', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: jsonData,
         });
+        console.log(response.json())
 
         const { data } = await response.json();
-        if (data) {
-            console.log(data.start_point, data.end_point);
-}
+        if (data) console.log(data);
 
         if (response.ok) {
-            updateUI(data); // Передаем данные в функцию обновления UI
+            updateUI(data); // Обновляем UI с полученными данными
         } else {
-            alert(`Ошибка: ${data.error || 'Неизвестная ошибка'}`);
+            //alert(`Ошибка: ${data.error || 'Неизвестная ошибка'}`);
         }
     } catch (error) {
-        alert(`Произошла ошибка: ${error.message}`);
+        //alert(`Произошла ошибка: ${error.message}`);
+    } finally {
+        //hideLoading(); // Скрываем индикатор загрузки после завершения запроса
     }
 };
 
-// Функция для обновления UI
-function updateUI(datas) {
+function showLoading() {
+    document.getElementById('loading').style.display = 'flex'; // Отображаем индикатор загрузки внутри карты
+}
+
+function hideLoading() {
+    document.getElementById('loading').style.display = 'none'; // Скрываем индикатор загрузки
+}
+
+function updateUI({ start_latitude, start_longitude, end_latitude, end_longitude }) {
     const resultBlock = document.querySelector('.map-result_content');
+    if (!resultBlock) return;
 
-    if (!resultBlock) {
-        console.error('Элемент для отображения результата не найден');
-        return;
-    }
+    let latitude_center = (start_latitude + end_latitude) / 2;
+    let longitude_center = (start_longitude + end_longitude) / 2;
+    let zoom = 10;
 
-    // Используем шаблонные строки для корректной вставки HTML
+    // Отображаем карту с маршрутом
     resultBlock.innerHTML = `
-        <h3>Результаты:</h3>
-        <p>Начальная точка: ${datas.start_point || 'Не указано'}</p>
-        <p>Конечная точка: ${datas.end_point || 'Не указано'}</p>
+        <h3>Маршрут</h3>
+        <iframe src="https://yandex.ru/map-widget/v1/?from=mapframe&ll=${longitude_center}%2C${latitude_center}&mode=routes&rtext=${start_latitude}%2C${start_longitude}~${end_latitude}%2C${end_longitude}&rtt=auto&ruri=~&z=${zoom}" 
+                width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
     `;
 }
