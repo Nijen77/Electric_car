@@ -1,128 +1,58 @@
 let carData = []; // Глобальный массив для хранения данных автомобилей
 
-document.getElementById("car_model").addEventListener("input", function () {
-    let query = this.value.toLowerCase();
-    let datalist = document.getElementById("car_model_list");
-
-    if (query.length < 1) {
-        datalist.innerHTML = ""; // Очищаем список, если нет ввода
-        return;
+// Функция загрузки данных автомобилей
+async function loadCarModels() {
+    try {
+        const response = await fetch("./js/carsModels.json");
+        carData = await response.json();
+    } catch (error) {
+        console.error("Ошибка загрузки данных:", error);
     }
+}
 
-    fetch("./js/carsModels.json") // Загружаем список моделей авто
-        .then(response => response.json())
-        .then(data => {
-            carData = data; // Сохраняем в глобальную переменную
-            datalist.innerHTML = "";
-            let count = 0;
+// Функция обновления списка моделей
+function updateCarModelList(query) {
+    const datalist = document.getElementById("car_model_list");
+    datalist.innerHTML = ""; // Очищаем список
 
-            data.forEach(option => {
-                if (option.name.toLowerCase().includes(query) && count < 5) {
-                    let opt = document.createElement("option");
-                    opt.value = option.name;
-                    datalist.appendChild(opt);
-                    count++;
-                }
-            }); let carData = []; // Глобальный массив для хранения данных автомобилей
+    if (query.length < 1) return;
 
-            document.getElementById("car_model").addEventListener("input", function () {
-                let query = this.value.toLowerCase();
-                let datalist = document.getElementById("car_model_list");
+    let count = 0;
+    carData.forEach(option => {
+        if (option.name.toLowerCase().includes(query) && count < 5) {
+            let opt = document.createElement("option");
+            opt.value = option.name;
+            datalist.appendChild(opt);
+            count++;
+        }
+    });
+}
 
-                if (query.length < 1) {
-                    datalist.innerHTML = ""; // Очищаем список, если нет ввода
-                    return;
-                }
+// Функция обработки выбора модели
+function handleCarModelChange() {
+    const selectedModel = document.getElementById("car_model").value;
+    const hiddenInput = document.getElementById("car_id");
 
-                fetch("./js/carsModels.json") // Загружаем список моделей авто
-                    .then(response => response.json())
-                    .then(data => {
-                        carData = data; // Сохраняем в глобальную переменную
-                        datalist.innerHTML = "";
-                        let count = 0;
+    const foundCar = carData.find(car => car.name === selectedModel);
+    hiddenInput.value = foundCar ? foundCar.id : "";
+}
 
-                        data.forEach(option => {
-                            if (option.Модель.toLowerCase().includes(query) && count < 5) {
-                                let opt = document.createElement("option");
-                                opt.value = option.Модель;
-                                datalist.appendChild(opt);
-                                count++;
-                            }
-                        });
-                    })
-                    .catch(error => console.error("Ошибка загрузки данных:", error));
-            });
+// Функция обработки отправки формы
+async function handleFormSubmit(event) {
+    event.preventDefault();
 
-            document.getElementById("car_model").addEventListener("change", function () {
-                let selectedModel = this.value;
-                let hiddenInput = document.getElementById("car_id");
-
-                let foundCar = carData.find(car => car.Модель === selectedModel);
-                hiddenInput.value = foundCar ? foundCar._id : ""; // Заполняем ID
-            });
-
-            document.getElementById("battery_analysis").onsubmit = async (e) => {
-                e.preventDefault();
-
-                const formElement = document.querySelector("#battery_analysis");
-                const formData = new FormData(formElement);
-                const formDataObject = {
-                    car_id: formData.get("car_id"),
-                    probeg_km: formData.get("probeg_km"),
-                    battery_age_months: formData.get("battery_age_months")
-                };
-
-                const jsonData = JSON.stringify(formDataObject);
-                console.log(jsonData);
-
-                try {
-                    const response = await fetch("/submit-data", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: jsonData,
-                    });
-
-                    const { data } = await response.json();
-                    if (data) console.log(data);
-
-                    if (response.ok) {
-                        alert("Данные успешно отправлены!");
-                    } else {
-                        alert(`Ошибка: ${data.error || "Неизвестная ошибка"}`);
-                    }
-                } catch (error) {
-                    alert(`Произошла ошибка: ${error.message}`);
-                }
-            };
-
-        })
-        .catch(error => console.error("Ошибка загрузки данных:", error));
-});
-
-document.getElementById("car_model").addEventListener("change", function () {
-    let selectedModel = this.value;
-    let hiddenInput = document.getElementById("car_id");
-
-    let foundCar = carData.find(car => car.name === selectedModel);
-    hiddenInput.value = foundCar ? foundCar.id : ""; // Заполняем ID
-});
-
-
-
-
-document.getElementById("battery_analysis").onsubmit = async (e) => {
-    e.preventDefault();
-
-    const formElement = document.querySelector("#battery_analysis");
+    const formElement = document.getElementById("battery_analysis");
     const formData = new FormData(formElement);
     const formDataObject = Object.fromEntries(formData.entries());
 
-    // Добавляем ID авто (если найден)
-    let carId = carData.find(car => car.name === formDataObject.car_model)?.id || "";
-    formDataObject["car_id"] = carId;
+    // Добавляем ID авто, если найден
+    formDataObject.car_id = carData.find(car => car.name === formDataObject.car_model)?.id || "";
+
+    // Удаляем `car_model`, если он не нужен
+    delete formDataObject.car_model;
 
     const jsonData = JSON.stringify(formDataObject);
-    console.log(jsonData)
+    console.log(jsonData);
 
     try {
         const response = await fetch("/submit-data", {
@@ -132,8 +62,6 @@ document.getElementById("battery_analysis").onsubmit = async (e) => {
         });
 
         const { data } = await response.json();
-        if (data) console.log(data);
-
         if (response.ok) {
             alert("Данные успешно отправлены!");
         } else {
@@ -142,4 +70,14 @@ document.getElementById("battery_analysis").onsubmit = async (e) => {
     } catch (error) {
         alert(`Произошла ошибка: ${error.message}`);
     }
-};
+}
+
+// Назначаем обработчики событий
+document.getElementById("car_model").addEventListener("input", function () {
+    updateCarModelList(this.value.toLowerCase());
+});
+document.getElementById("car_model").addEventListener("change", handleCarModelChange);
+document.getElementById("battery_analysis").addEventListener("submit", handleFormSubmit);
+
+// Загружаем данные автомобилей при загрузке страницы
+loadCarModels();
