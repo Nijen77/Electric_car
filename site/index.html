@@ -81,13 +81,11 @@
                                     <input id="usage_time" type="number" name="usage_time"
                                         placeholder="Введите время использования" min="0" required />
                                 </div>
-
+                                
                                 <div>
                                     <button type="submit">Отправить</button>
                                 </div>
                             </form>
-                            <form action=""></form>
-
 
                         </div>
                         <div class="block">
@@ -97,10 +95,10 @@
                                     <span class="loader"></span>
                                     <span>Идет обработка...</span>
                                 </div>
-
+    
                                 <div class="battery-result_content">
                                 </div>
-
+    
                             </div>
                         </div>
 
@@ -184,7 +182,31 @@
     });
 </script>
 <script>
+    document.getElementById("car_model").addEventListener("input", function () {
+    let query = this.value.toLowerCase();
+    let datalist = document.getElementById("car_model_list");
 
+    if (query.length < 1) {
+        datalist.innerHTML = ""; // Очищаем список, если нет ввода
+        return;
+    }
+
+    fetch("./js/carsModels.json") // путь к JSON-файлу
+        .then(response => response.json())
+        .then(data => {
+            datalist.innerHTML = ""; // Очищаем перед обновлением
+            let count = 0; // Счётчик для ограничения количества
+            data.forEach(option => {
+                if (option.name.toLowerCase().includes(query) && count < 5) { // Фильтруем и ограничиваем
+                    let opt = document.createElement("option");
+                    opt.value = option.name;
+                    datalist.appendChild(opt);
+                    count++; // Увеличиваем счётчик
+                }
+            });
+        })
+        .catch(error => console.error("Ошибка загрузки данных:", error));
+});
 
 </script>
 
