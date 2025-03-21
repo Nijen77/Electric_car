@@ -68,8 +68,8 @@ document.getElementById("car_model").addEventListener("input", function () {
                 const formData = new FormData(formElement);
                 const formDataObject = {
                     car_id: formData.get("car_id"),
-                    mileage: formData.get("mileage"),
-                    usage_time: formData.get("usage_time")
+                    probeg_km: formData.get("probeg_km"),
+                    battery_age_months: formData.get("battery_age_months")
                 };
 
                 const jsonData = JSON.stringify(formDataObject);
