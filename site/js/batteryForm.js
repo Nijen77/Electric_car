@@ -70,7 +70,7 @@ async function handleFormSubmit(event) {
             body: jsonData,
         });
 
-        const { predictResult } = await predictResponse.json();
+        const predictResult = await predictResponse.json();
 
         if (predictResponse.ok) {
             console.log("Ответ от /predict:", predictResult);
@@ -113,7 +113,7 @@ document.getElementById("battery_analysis").addEventListener("submit", handleFor
 // Загружаем данные автомобилей при загрузке страницы
 loadCarModels();
 
-function updateUIX(degradation, recommendations) {
+function updateUIX({ degradation, recommendations }) {
     const resultBlock = document.querySelector('.battery-result_content');
     if (!resultBlock) return;
 
