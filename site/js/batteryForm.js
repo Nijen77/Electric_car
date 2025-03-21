@@ -70,7 +70,7 @@ async function handleFormSubmit(event) {
             body: jsonData,
         });
 
-        const predictResult = await predictResponse.json();
+        const { predictResult } = await predictResponse.json();
 
         if (predictResponse.ok) {
             console.log("Ответ от /predict:", predictResult);
@@ -117,10 +117,9 @@ function updateUIX(degradation, recommendations) {
     const resultBlock = document.querySelector('.battery-result_content');
     if (!resultBlock) return;
 
-    resultBlock.innerHTML = `
-        <h3>Оценка состояния аккумулятора</h3>
-        <img src="/site/source/img/logo.png" alt="">
-        дегрод${degradation} и реком ${recommendations}`;
+    resultBlock.innerHTML = `<h3>Оценка состояния аккумулятора</h3>
+        <img src="site/source/img/photo.png" alt="">
+        дегрод${degradation} и реком ${recommendations}`
+        ;
 
 }
-
