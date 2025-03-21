@@ -14,7 +14,7 @@ load_dotenv()
 
 app = Flask(__name__)  
 CORS(app)
-dasdasdas
+
 # Настройка подключения к PostgreSQL
 def get_db_connection():
     try:
