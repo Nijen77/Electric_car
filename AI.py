@@ -6,10 +6,13 @@ import joblib
 import pandas as pd
 from bson import ObjectId
 from flask import Flask, request, jsonify
+from flask_cors import CORS
+
 load_dotenv()
 MONGO_URI = os.getenv("mongodb+srv://rybasevgenij:Y2UNBkpw7b4CWAl9@elcartest.rygnv.mongodb.net/cartelem")
 
 app = Flask(__name__)
+CORS(app)
 
 # === Основной процесс ===
 if __name__ == "__main__":

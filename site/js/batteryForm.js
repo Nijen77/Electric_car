@@ -51,11 +51,19 @@ async function handleFormSubmit(event) {
     // Удаляем `car_model`, если он не нужен
     delete formDataObject.car_model;
 
+    // Приведение типов данных
+    if (formDataObject.probeg_km) {
+        formDataObject.probeg_km = parseInt(formDataObject.probeg_km, 10); // Преобразование в целое число
+    }
+    if (formDataObject.battery_age_months) {
+        formDataObject.battery_age_months = parseInt(formDataObject.battery_age_months, 10); // Преобразование в целое число
+    }
+
     const jsonData = JSON.stringify(formDataObject);
     console.log(jsonData);
 
     try {
-        const response = await fetch("/submit-data", {
+        const response = await fetch("http://127.0.0.1:5001/predict", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: jsonData,
