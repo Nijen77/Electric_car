@@ -6,6 +6,7 @@ document.getElementById('mapForm').onsubmit = async (e) => {
     const formDataObject = Object.fromEntries(formData.entries());
     formDataObject['parameters'] = formData.getAll('parameters');
     const jsonData = JSON.stringify(formDataObject);
+    console.log(response.json())
 
     showLoading(); // Показываем индикатор загрузки
 
@@ -15,6 +16,7 @@ document.getElementById('mapForm').onsubmit = async (e) => {
             headers: { 'Content-Type': 'application/json' },
             body: jsonData,
         });
+        console.log(response.json())
 
         const { data } = await response.json();
         if (data) console.log(data);
@@ -22,25 +24,21 @@ document.getElementById('mapForm').onsubmit = async (e) => {
         if (response.ok) {
             updateUI(data); // Обновляем UI с полученными данными
         } else {
-            alert(`Ошибка: ${data.error || 'Неизвестная ошибка'}`);
+            //alert(`Ошибка: ${data.error || 'Неизвестная ошибка'}`);
         }
     } catch (error) {
-        alert(`Произошла ошибка: ${error.message}`);
+        //alert(`Произошла ошибка: ${error.message}`);
     } finally {
-        hideLoading(); // Скрываем индикатор загрузки после завершения запроса
+        //hideLoading(); // Скрываем индикатор загрузки после завершения запроса
     }
 };
 
 function showLoading() {
-    document.getElementById('loading').style.display = 'flex'; // Отображаем экран загрузки
-    document.getElementById('submitButton').disabled = true; // Блокируем кнопку отправки
-    document.body.classList.add('loading-active'); // Блокируем взаимодействие со всей страницей
+    document.getElementById('loading').style.display = 'flex'; // Отображаем индикатор загрузки внутри карты
 }
 
 function hideLoading() {
-    document.getElementById('loading').style.display = 'none'; // Скрываем экран загрузки
-    document.getElementById('submitButton').disabled = false; // Разблокируем кнопку отправки
-    document.body.classList.remove('loading-active'); // Разрешаем взаимодействие со страницей
+    document.getElementById('loading').style.display = 'none'; // Скрываем индикатор загрузки
 }
 
 function updateUI({ start_latitude, start_longitude, end_latitude, end_longitude }) {

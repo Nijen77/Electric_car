@@ -38,6 +38,9 @@ input[type="number"] {
     -webkit-appearance: none; 
 }
 
+input[list="car_model_list"]::-webkit-calendar-picker-indicator {
+    display: none !important;
+}
 
 .form input
 .form select:focus,
@@ -87,16 +90,12 @@ svg {
     height: 100%;
 }
 
-
-/* Стили для экрана загрузки */
 .loading {
     display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(129, 124, 124, 0.5);
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -104,6 +103,10 @@ svg {
     font-size: 18px;
     font-weight: bold;
     z-index: 1000;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 7em;
+    max-width: 20%;
 }
 /* Анимированный индикатор загрузки */
 .loader {
@@ -125,8 +128,9 @@ svg {
         transform: rotate(360deg);
     }
 }
-/* Блокировка взаимодействия со страницей во время загрузки */
-body.loading-active {
-    pointer-events: none;
-    user-select: none;
+
+.map-result_content {
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
