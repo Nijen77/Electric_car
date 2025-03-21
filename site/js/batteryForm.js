@@ -118,7 +118,7 @@ function updateUIX(degradation, recommendations) {
     if (!resultBlock) return;
 
     resultBlock.innerHTML = `<h3>Оценка состояния аккумулятора</h3>
-        <img src="site/source/img/photo.png" alt="">
+        <img src="site/source/img/photo.jpg" alt="">
         дегрод${degradation} и реком ${recommendations}`
         ;
 
