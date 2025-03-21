@@ -15,20 +15,6 @@ load_dotenv()
 app = Flask(__name__)  
 CORS(app)
 
-# Настройка подключения к PostgreSQL
-def get_db_connection():
-    try:
-        return psycopg2.connect(
-            dbname=os.getenv('DB_NAME'),
-            user=os.getenv('DB_USER'),
-            password=os.getenv('DB_PASSWORD'),
-            host=os.getenv('DB_HOST'),
-            port=os.getenv('DB_PORT')
-        )
-    except psycopg2.OperationalError as e:
-        app.logger.error(f"Ошибка подключения к PostgreSQL: {str(e)}")
-        raise
-
 # Настройка подключения к MongoDB
 mongo_uri = os.getenv('MONGO_URI')
 if not mongo_uri:
@@ -43,98 +29,6 @@ try:
 except Exception as e:
     print(f"Ошибка подключения к MongoDB: {e}")
     raise RuntimeError("Проблема с доступом к базе данных MongoDB")
-
-# Роут для регистрации пользователя (PostgreSQL)
-@app.route('/register', methods=['POST'])
-def register_user():
-    if request.content_type != 'application/json':
-        return jsonify({'error': 'Content-Type должен быть application/json'}), 415
-
-    try:
-        app.logger.info("\n=== Поступил запрос ===")
-        app.logger.info(f"Заголовки запроса: {request.headers}")
-        app.logger.info(f"Тело запроса (сырое): {request.data}")
-
-        try:
-            data = request.get_json()
-        except Exception as e:
-            app.logger.error(f"Ошибка получения JSON из запроса: {e}")
-            return jsonify({'error': 'Неверный формат JSON'}), 400
-
-        if not data:
-            app.logger.error("Пустое тело запроса")
-            return jsonify({'error': 'Тело запроса пустое'}), 400
-
-        app.logger.info(f"Тело запроса (JSON): {data}")
-    except Exception as e:
-        app.logger.error(f"Ошибка сервера: {str(e)}")
-        return jsonify({'error': 'Ошибка сервера'}), 500
-
-    try:
-        first_name = data.get('first_name')
-        last_name = data.get('last_name')
-        patronymic = data.get('patronymic')
-        email = data.get('email')
-        password = data.get('password')
-
-        if not first_name or not last_name or not email or not password:
-            return jsonify({'error': 'Обязательные поля не заполнены'}), 400
-
-        email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
-        if not re.match(email_regex, email):
-            return jsonify({'error': 'Неверный формат email'}), 400
-
-        if len(password) < 8:
-            return jsonify({'error': 'Пароль должен быть не менее 8 символов'}), 400
-
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(12)).decode('utf-8')
-
-        query_check_email = "SELECT COUNT(*) FROM el_car_users WHERE email = %s"
-        query_insert_user = """
-            INSERT INTO el_car_users (first_name, last_name, patronymic, email, passwordhash)
-            VALUES (%s, %s, %s, %s, %s)
-        """
-
-        with get_db_connection() as conn:
-            with conn.cursor() as cur:
-                cur.execute(query_check_email, (email,))
-                if cur.fetchone()[0] > 0:
-                    return jsonify({'error': 'Этот email уже зарегистрирован'}), 409
-
-                cur.execute(query_insert_user, (first_name, last_name, patronymic, email, hashed_password))
-                conn.commit()
-
-        return jsonify({'message': 'Пользователь успешно зарегистрирован'}), 201
-
-    except psycopg2.OperationalError:
-        return jsonify({'error': 'Не удалось подключиться к PostgreSQL'}), 500
-    except Exception as e:
-        app.logger.error(f'Ошибка сервера: {str(e)}')
-        return jsonify({'error': 'Ошибка сервера'}), 500
-
-# Авторизация пользователя
-@app.route('/login', methods=['POST'])
-def login_user():
-    data = request.get_json()
-    email = data.get('email')
-    password = data.get('password')
-
-    if not (email and password):
-        return jsonify({'error': 'Email и пароль обязательны'}), 400
-
-    with get_db_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute("SELECT passwordhash FROM el_car_users WHERE email = %s", (email,))
-            result = cur.fetchone()
-
-            if not result:
-                return jsonify({'error': 'Пользователь не найден'}), 404
-
-            stored_password = result[0]
-            if not bcrypt.checkpw(password.encode('utf-8'), stored_password.encode('utf-8')):
-                return jsonify({'error': 'Неверный пароль'}), 401
-
-    return jsonify({'message': 'Авторизация успешна'}), 200
 
 # Роут для сохранения данных телеметрии (MongoDB)
 @app.route('/submit-data', methods=['POST'])
@@ -161,7 +55,7 @@ def submit_data():
         form_type = None
         
         # Обязательные поля для первой формы (форма телеметрии автомобиля)
-        vehicle_form_fields = ['car_model', 'mileage', 'usage_time', 'usage_frequency']
+        vehicle_form_fields = ['car_id', 'probeg_km', 'battery_age_months']
         missing_vehicle_fields = [field for field in vehicle_form_fields if field not in data or not data[field]]
         
         # Обязательные поля для второй формы (форма расчёта маршрута)
