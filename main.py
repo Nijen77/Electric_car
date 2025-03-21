@@ -111,37 +111,7 @@ def submit_data():
     except Exception as e:
         app.logger.error(f"Ошибка сервера: {e}")
         return jsonify({"error": "Ошибка сервера"}), 500
-    
-# Роут для просмотра сохраненных данных (MongoDB)
-@app.route('/view-data', methods=['GET'])
-def view_data():
-    try:
-        data = list(db.telemetry.find({}, {'_id': 0}))  # Убираем ObjectId для удобства
-        return jsonify({'data': data}), 200
-    except Exception as e:
-        app.logger.error(f'Ошибка сервера: {str(e)}')
-        return jsonify({'error': 'Ошибка сервера'}), 500
 
-# Роут для получения данных
-@app.route('/users')
-def get_users():
-    try:
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        cursor.execute('SELECT id, first_name, last_name, email FROM el_car_users;')
-        users = cursor.fetchall()  # Получаем все данные
-        cursor.close()
-        conn.close()
-
-        # Форматируем результат для JSON-ответа
-        users_list = [
-            {'id': user[0], 'first_name': user[1], 'last_name': user[2], 'email': user[3]} 
-            for user in users
-        ]
-        return jsonify(users_list)  # Возвращаем данные в формате JSON
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
 
 # Роут для статических файлов
 @app.route('/<path:filename>')
