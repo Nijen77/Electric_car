@@ -74,6 +74,8 @@ async function handleFormSubmit(event) {
 
         if (predictResponse.ok) {
             console.log("Ответ от /predict:", predictResult);
+            updateUI(predictResult);
+
 
             // Отправка данных на /submit-data
             const submitResponse = await fetch("http://127.0.0.1:5000/submit-data", {
