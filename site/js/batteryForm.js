@@ -111,3 +111,14 @@ document.getElementById("battery_analysis").addEventListener("submit", handleFor
 // Загружаем данные автомобилей при загрузке страницы
 loadCarModels();
 
+function updateUI(degradation, recommendations) {
+    const resultBlock = document.querySelector('.battery-result_content');
+    if (!resultBlock) return;
+
+    resultBlock.innerHTML = `
+        <h3>Оценка состояния аккумулятора</h3>
+        <img src="/site/source/img/logo.png" alt="">
+        дегрод${degradation} и реком ${recommendations}`;
+
+}
+
