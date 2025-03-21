@@ -67,14 +67,9 @@
                             <form id="battery_analysis" class="form"> <!--method="POST" action="/submit-data"-->
                                 <div>
                                     <label for="car_model">Модель авто</label>
-                                    <select id="car_model" name="car_model" aria-label="Модель авто" required>
-                                        <option value="not_selected">не выбрано</option>
-                                        <option value="Volkswagen ID.3">Volkswagen ID.3</option>
-                                        <option value="Hyundai Kona Electric">Hyundai Kona Electric</option>
-                                        <option value="Nissan Ariya">Nissan Ariya</option>
-                                        <option value="Tesla Model 3">Tesla Model 3</option>
-                                        <option value="Volvo XC40 Recharge">Volvo XC40 Recharge</option>
-                                    </select>
+                                    <input type="text" id="car_model" name="car_model" list="car_model_list"
+                                        aria-label="Модель авто" required>
+                                    <datalist id="car_model_list"></datalist>
                                 </div>
                                 <div>
                                     <label for="mileage">Пробег, км</label>
@@ -133,10 +128,6 @@
                                         Использовать определённый тип дороги</label>
                                 </div>
                                 <div>
-
-                                </div>
-
-                                <div>
                                     <button type="submit">Расчитать</button>
                                 </div>
 
@@ -144,17 +135,15 @@
                         </form>
 
                     </div>
-                    <div class="loading" id="loading">
-                        <span class="loader"></span>
-                        <span>Идет обработка...</span>
-                    </div>
                     <div class="block">
                         <h2>результаты</h2>
                         <div class="map-result_container">
+                            <div class="loading" id="loading">
+                                <span class="loader"></span>
+                                <span>Идет обработка...</span>
+                            </div>
+
                             <div class="map-result_content">
-
-
-
                             </div>
 
                         </div>
@@ -175,7 +164,47 @@
 <script src="js/mapForm.js" defer></script>
 <script src="js/sidebar.js"></script>
 <script src="js/dropDownMenu.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link href="http://cdn.jsdelivr.net/npm/suggestions-jquery@22.6.0/dist/css/suggestions.min.css" rel="stylesheet" />
+<script src="http://cdn.jsdelivr.net/npm/suggestions-jquery@22.6.0/dist/js/jquery.suggestions.min.js"></script>
+<script>
+    $("#start_point, #end_point").suggestions({
+        token: "cde0d12eec2ca41cbcff79ef0b2352fee9780874",
+        type: "ADDRESS",
+        /* Вызывается, когда пользователь выбирает одну из подсказок */
+        onSelect: function (suggestion) {
+            console.log(suggestion);
+        }
+    });
+</script>
+<script>
+    document.getElementById("car_model").addEventListener("input", function () {
+    let query = this.value.toLowerCase();
+    let datalist = document.getElementById("car_model_list");
 
+    if (query.length < 1) {
+        datalist.innerHTML = ""; // Очищаем список, если нет ввода
+        return;
+    }
+
+    fetch("./js/carsModels.json") // путь к JSON-файлу
+        .then(response => response.json())
+        .then(data => {
+            datalist.innerHTML = ""; // Очищаем перед обновлением
+            let count = 0; // Счётчик для ограничения количества
+            data.forEach(option => {
+                if (option.name.toLowerCase().includes(query) && count < 5) { // Фильтруем и ограничиваем
+                    let opt = document.createElement("option");
+                    opt.value = option.name;
+                    datalist.appendChild(opt);
+                    count++; // Увеличиваем счётчик
+                }
+            });
+        })
+        .catch(error => console.error("Ошибка загрузки данных:", error));
+});
+
+</script>
 
 
 </html>
