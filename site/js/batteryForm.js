@@ -127,6 +127,11 @@ async function handleFormSubmit(event) {
     const jsonData = JSON.stringify(formDataObject);
     console.log("Данные для отправки:", jsonData);
 
+    const resultBlock = document.getElementById("battery-result_content");
+    if (resultBlock) {
+        resultBlock.innerHTML = ""; // Полная очистка содержимого результатов
+}
+
     try {
         // Показываем загрузку
         loadingElement.style.display = "flex";
@@ -146,7 +151,6 @@ async function handleFormSubmit(event) {
             // Выводим изображение и текст
             getImage({
                 value: predictResult.degradation, // Ожидаемое число
-                text: "Оценка состояния батареи",
             });
         
             // Выводим деградацию батареи и рекомендации
