@@ -106,7 +106,7 @@ async function handleFormSubmit(event) {
     event.preventDefault();
 
     const formElement = document.getElementById("battery_analysis");
-    const loadingElement = document.getElementById("battery_loading"); // Получаем элемент загрузки
+    const loadingElement = document.getElementById("battery_loading");
     const formData = new FormData(formElement);
     const formDataObject = Object.fromEntries(formData.entries());
 
@@ -142,7 +142,18 @@ async function handleFormSubmit(event) {
 
         if (predictResponse.ok) {
             console.log("Ответ от /predict:", predictResult);
-            getImage(predictResult);
+        
+            // Выводим изображение и текст
+            getImage({
+                value: predictResult.degradation, // Ожидаемое число
+                text: "Оценка состояния батареи",
+            });
+        
+            // Выводим деградацию батареи и рекомендации
+            updateUIX({
+                degradation: predictResult.degradation,
+                recommendations: predictResult.recommendations,
+            });
 
             // Отправка данных на /submit-data
             const submitResponse = await fetch("http://127.0.0.1:5000/submit-data", {
@@ -168,7 +179,7 @@ async function handleFormSubmit(event) {
         console.error("Ошибка сети или сервера:", error);
         alert(`Произошла ошибка: ${error.message}`);
     } finally {
-        // Скрываем загрузку в любом случае (успех или ошибка)
+        // Скрываем загрузку
         loadingElement.style.display = "none";
     }
 }
@@ -187,14 +198,17 @@ document.getElementById("car_model").addEventListener("change", handleCarModelCh
 loadCarModels();
 
 function updateUIX({ degradation, recommendations }) {
-    const resultBlock = document.querySelector('.battery-result_content');
-    if (!resultBlock) return;
+    const resultBlock = document.getElementById("battery-result_content");
+    if (!resultBlock) {
+        console.error("Элемент с ID 'battery-result_content' не найден.");
+        return;
+    }
 
-    resultBlock.innerHTML = `<h3>Оценка состояния аккумулятора</h3>
-        <img src="/source/img/photo.jpg" alt="">
-        дегрод${degradation} и реком ${recommendations}`
-        ;
-
+    resultBlock.innerHTML += `
+        <h3>Оценка состояния аккумулятора</h3>
+        <p>Деградация: ${degradation}%</p>
+        <p>Рекомендации: ${recommendations}</p>
+    `;
 }
 
 
@@ -215,19 +229,40 @@ function getImage({ value, text }) {
         imagePath = "source/img/more_80.svg";
     }
 
-    // Вывод изображения и текста (можно вставить в HTML)
     const imgElement = document.createElement("img");
     imgElement.src = imagePath;
     imgElement.alt = text;
-    imgElement.classList.add('battery-picture')
+    imgElement.classList.add('battery-picture');
 
     const textElement = document.createElement("h3");
     textElement.textContent = text;
 
-    const container = document.getElementById("map-result_content");
+    const container = document.getElementById("battery-result_content");
+    if (!container) {
+        console.error("Элемент с ID 'battery-result_content' не найден.");
+        return;
+    }
+
     container.innerHTML = ""; // Очистка перед вставкой нового
     container.appendChild(imgElement);
     container.appendChild(textElement);
+
+    // Скрываем окно загрузки после того, как изображение загрузится
+    imgElement.onload = () => {
+        const loadingElement = document.getElementById("battery_loading");
+        if (loadingElement) {
+            loadingElement.style.display = "none";
+        }
+    };
+
+    // Обработка ошибок загрузки изображения
+    imgElement.onerror = () => {
+        console.error("Ошибка загрузки изображения:", imagePath);
+        const loadingElement = document.getElementById("battery_loading");
+        if (loadingElement) {
+            loadingElement.style.display = "none";
+        }
+    };
 }
 
 // Пример использования
